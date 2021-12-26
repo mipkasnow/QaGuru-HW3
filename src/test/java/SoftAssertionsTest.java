@@ -1,7 +1,5 @@
 import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static com.codeborne.selenide.Condition.appear;
 import static com.codeborne.selenide.Condition.text;
@@ -10,8 +8,8 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class SoftAssertionsTest {
 
-    @BeforeAll
-    static void beforeAll(){
+    @BeforeEach
+    void beforeAll(){
         clearBrowserCookies();
         Configuration.baseUrl = "https://github.com/";
         Configuration.browserSize = "1590x850";
@@ -23,7 +21,7 @@ public class SoftAssertionsTest {
         closeWebDriver();
     }
 
-    @Test
+    @RepeatedTest(10)
     void softAssertionsTest(){
         $("[data-test-selector='nav-search-input']").setValue("selenide").pressEnter();
         $$("ul.repo-list li").first().$("a").click();
