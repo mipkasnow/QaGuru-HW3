@@ -21,12 +21,13 @@ public class SoftAssertionsTest {
         closeWebDriver();
     }
 
-    @RepeatedTest(10)
+    @RepeatedTest(20)
     void softAssertionsTest(){
         $("[data-test-selector='nav-search-input']").setValue("selenide").pressEnter();
         $$("ul.repo-list li").first().$("a").click();
         $("a[id='wiki-tab']").click();
         $(".js-wiki-more-pages-link").click();
+        new LoadingBar().waitForLoad();
         $("[data-filterable-for='wiki-pages-filter']").$(byText("SoftAssertions")).click();
 
         $(byText("Using JUnit5 extend test class:")).parent().sibling(0).shouldHave(text("@ExtendWith({SoftAssertsExtension.class})"));
